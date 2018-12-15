@@ -6,10 +6,16 @@ class BookSearch extends Component {
     this.state = {
       query: "",
     };
+    this.handleQuery = this.handleQuery.bind(this);
+  }
+
+  handleQuery(event) {
+    const query = event.target.value;
+    this.setState({ query });
   }
 
   render() {
-    const { onPageChange } = this.props;
+    const { onPageChange, query } = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -23,7 +29,11 @@ class BookSearch extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-            <input type="text" placeholder="Search by title or author" />
+            <input
+              value={query}
+              type="text"
+              onChange={this.handleQuery}
+              placeholder="Search by title or author" />
 
           </div>
         </div>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book';
 import { Link } from 'react-router-dom';
 
 class BookSearch extends Component {
@@ -6,6 +8,7 @@ class BookSearch extends Component {
     super(props);
     this.state = {
       query: "",
+      books: []
     };
     this.handleQuery = this.handleQuery.bind(this);
   }
@@ -13,10 +16,30 @@ class BookSearch extends Component {
   handleQuery(event) {
     const query = event.target.value;
     this.setState({ query });
+    if (query !== '') {
+      BooksAPI.search(query)
+        .then(books => {
+          if (books instanceof Array) {
+            this.setState({ books });
+          } else {
+            this.setState({
+              books: [
+                {
+                  title: "Invalid search",
+                }
+              ]
+            })
+          }
+        })
+        .catch(error => console.log(error));
+    } else {
+      this.setState({ books: [] });
+    }
   }
 
   render() {
     const { query } = this.props;
+    const { books } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -41,7 +64,17 @@ class BookSearch extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {
+              books.map((book, index) => {
+                return (
+                  <li key={book.id || index}>
+                    <Book book={book} />
+                  </li>
+                );
+              })
+            }
+          </ol>
         </div>
       </div>
     );

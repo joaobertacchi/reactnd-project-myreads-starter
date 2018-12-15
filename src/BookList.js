@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookShelf from './BookShelf';
 import * as BooksAPI from './BooksAPI';
+import { Link } from 'react-router-dom';
 
 class BookList extends Component {
   constructor(props) {
@@ -31,7 +32,6 @@ class BookList extends Component {
   }
 
   render() {
-    const { onPageChange } = this.props;
     const { books } = this.state;
     return (
       <div className="list-books">
@@ -57,9 +57,11 @@ class BookList extends Component {
             />
           </div>
         </div>
-        <div className="open-search">
-          <button onClick={onPageChange}>Add a book</button>
-        </div>
+        <Link to={'/search'}>
+          <div className="open-search">
+            <button>Add a book</button>
+          </div>
+        </Link>
       </div>
     );
   }

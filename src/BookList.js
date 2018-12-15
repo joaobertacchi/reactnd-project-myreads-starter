@@ -23,9 +23,11 @@ class BookList extends Component {
       ...book,
       shelf,
     };
-    this.setState((currState) => ({
-      books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
-    }));
+    BooksAPI.update(book, shelf).then(() => {
+      this.setState((currState) => ({
+        books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
+      }));
+    });
   }
 
   render() {

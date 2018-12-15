@@ -8,8 +8,8 @@ const BookShelf = props => {
       <h2 className="bookshelf-title">{title}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {books.map(book => (
-            <li>
+          {books.map((book, index) => (
+            <li key={book.id || index}>
               <Book book={book} />
             </li>
           ))}

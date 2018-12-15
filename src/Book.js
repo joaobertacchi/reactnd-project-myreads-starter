@@ -7,7 +7,11 @@ const Book = props => {
       <div className="book-top">
         <div
           className="book-cover"
-          style={book.style}
+          style={book.style || {
+            width: 128,
+            height: 190,
+            backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
+          }}
         ></div>
         <div className="book-shelf-changer">
           <select>
@@ -20,7 +24,7 @@ const Book = props => {
         </div>
       </div>
       <div className="book-title">{book.title}</div>
-      <div className="book-authors">{book.authors}</div>
+      <div className="book-authors">{book.authors.join("; ")}</div>
     </div>
   );
 }

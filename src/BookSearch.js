@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const BookSearch = (props) => (
-  <div className="search-books">
-    <div className="search-books-bar">
-      <button className="close-search" onClick={props.onPageChange}>Close</button>
-      <div className="search-books-input-wrapper">
-        {/*
+class BookSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: "",
+    };
+  }
+
+  render() {
+    const { onPageChange } = this.props;
+    return (
+      <div className="search-books">
+        <div className="search-books-bar">
+          <button className="close-search" onClick={onPageChange}>Close</button>
+          <div className="search-books-input-wrapper">
+            {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
                   You can find these search terms here:
                   https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
@@ -13,14 +23,16 @@ const BookSearch = (props) => (
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-        <input type="text" placeholder="Search by title or author" />
+            <input type="text" placeholder="Search by title or author" />
 
+          </div>
+        </div>
+        <div className="search-books-results">
+          <ol className="books-grid"></ol>
+        </div>
       </div>
-    </div>
-    <div className="search-books-results">
-      <ol className="books-grid"></ol>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 export default BookSearch;

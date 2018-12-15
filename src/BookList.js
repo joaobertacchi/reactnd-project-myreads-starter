@@ -79,12 +79,24 @@ class BookList extends Component {
         },
       ],
     }
+
+    this.changeBookShelf = this.changeBookShelf.bind(this);
   }
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
       this.setState({ books });
     });
+  }
+
+  changeBookShelf(shelf, book) {
+    const changedBook = {
+      ...book,
+      shelf,
+    };
+    this.setState((currState) => ({
+      books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
+    }));
   }
 
   render() {
@@ -100,14 +112,17 @@ class BookList extends Component {
             <BookShelf
               title={"Currently Reading"}
               books={books.filter(book => book.shelf === "currentlyReading")}
+              onBookShelfChange={this.changeBookShelf}
             />
             <BookShelf
               title={"Want to Read"}
               books={books.filter(book => book.shelf === "wantToRead")}
+              onBookShelfChange={this.changeBookShelf}
             />
             <BookShelf
               title={"Read"}
               books={books.filter(book => book.shelf === "read")}
+              onBookShelfChange={this.changeBookShelf}
             />
           </div>
         </div>

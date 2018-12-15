@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Book = props => {
-  const { book } = props;
+  const { book, onBookShelfChange } = props;
   return (
     <div className="book">
       <div className="book-top">
@@ -14,7 +14,10 @@ const Book = props => {
           }}
         ></div>
         <div className="book-shelf-changer">
-          <select>
+          <select
+            value={book.shelf}
+            onChange={event => onBookShelfChange(event.target.value, book)}
+          >
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

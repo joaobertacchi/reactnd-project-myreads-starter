@@ -8,7 +8,7 @@ class BookSearch extends Component {
     super(props);
     this.state = {
       query: "",
-      books: []
+      searchResult: []
     };
     this.handleQuery = this.handleQuery.bind(this);
   }
@@ -18,12 +18,12 @@ class BookSearch extends Component {
     this.setState({ query });
     if (query !== '') {
       BooksAPI.search(query)
-        .then(books => {
-          if (books instanceof Array) {
-            this.setState({ books });
+        .then(searchResult => {
+          if (searchResult instanceof Array) {
+            this.setState({ searchResult });
           } else {
             this.setState({
-              books: [
+              searchResult: [
                 {
                   title: "Invalid search",
                 }
@@ -33,13 +33,13 @@ class BookSearch extends Component {
         })
         .catch(error => console.log(error));
     } else {
-      this.setState({ books: [] });
+      this.setState({ searchResult: [] });
     }
   }
 
   render() {
-    const { query } = this.props;
-    const { books } = this.state;
+    const { query, onBookShelfChange } = this.props;
+    const { searchResult } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -66,10 +66,10 @@ class BookSearch extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {
-              books.map((book, index) => {
+              searchResult.map((book, index) => {
                 return (
                   <li key={book.id || index}>
-                    <Book book={book} />
+                    <Book book={book} onBookShelfChange={onBookShelfChange} />
                   </li>
                 );
               })

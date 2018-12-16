@@ -1,38 +1,10 @@
 import React, { Component } from 'react';
 import BookShelf from './BookShelf';
-import * as BooksAPI from './BooksAPI';
 import { Link } from 'react-router-dom';
 
 class BookList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: [],
-    }
-
-    this.changeBookShelf = this.changeBookShelf.bind(this);
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then(books => {
-      this.setState({ books });
-    });
-  }
-
-  changeBookShelf(shelf, book) {
-    const changedBook = {
-      ...book,
-      shelf,
-    };
-    BooksAPI.update(book, shelf).then(() => {
-      this.setState((currState) => ({
-        books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
-      }));
-    });
-  }
-
   render() {
-    const { books } = this.state;
+    const { onBookShelfChange, books } = this.props;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -43,17 +15,17 @@ class BookList extends Component {
             <BookShelf
               title={"Currently Reading"}
               books={books.filter(book => book.shelf === "currentlyReading")}
-              onBookShelfChange={this.changeBookShelf}
+              onBookShelfChange={onBookShelfChange}
             />
             <BookShelf
               title={"Want to Read"}
               books={books.filter(book => book.shelf === "wantToRead")}
-              onBookShelfChange={this.changeBookShelf}
+              onBookShelfChange={onBookShelfChange}
             />
             <BookShelf
               title={"Read"}
               books={books.filter(book => book.shelf === "read")}
-              onBookShelfChange={this.changeBookShelf}
+              onBookShelfChange={onBookShelfChange}
             />
           </div>
         </div>

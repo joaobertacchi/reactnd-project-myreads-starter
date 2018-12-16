@@ -38,8 +38,8 @@ class BookSearch extends Component {
   }
 
   render() {
-    const { query, onBookShelfChange } = this.props;
-    const { searchResult } = this.state;
+    const { onBookShelfChange, books } = this.props;
+    const { searchResult, query } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -69,7 +69,10 @@ class BookSearch extends Component {
               searchResult.map((book, index) => {
                 return (
                   <li key={book.id || index}>
-                    <Book book={book} onBookShelfChange={onBookShelfChange} />
+                    <Book
+                      book={books.filter((b) => b.id === book.id)[0] || book}
+                      onBookShelfChange={onBookShelfChange}
+                    />
                   </li>
                 );
               })

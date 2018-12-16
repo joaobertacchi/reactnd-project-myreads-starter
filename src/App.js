@@ -21,11 +21,20 @@ class BooksApp extends React.Component {
       ...book,
       shelf,
     };
-    BooksAPI.update(book, shelf).then(() => {
-      this.setState((currState) => ({
-        books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
-      }));
-    });
+    BooksAPI.update(book, shelf)
+      .then((resp) => {
+        if (resp[shelf].includes(book.id)) {
+          console.log(`Succeeded to move book ${book.id} to ${shelf} shelf!`);
+          this.setState((currState) => ({
+            books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
+          }));
+        } else {
+          console.log(`Failed to move book ${book.id} to ${shelf} shelf!`);
+        }
+      })
+      .catch((reason) => {
+        console.log(reason);
+      });
   }
 
   componentDidMount() {

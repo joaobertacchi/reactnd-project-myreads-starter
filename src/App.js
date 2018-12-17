@@ -23,7 +23,12 @@ class BooksApp extends React.Component {
     };
     BooksAPI.update(book, shelf)
       .then((resp) => {
-        if (resp[shelf].includes(book.id)) {
+        if (shelf === 'none') {
+          console.log(`Succeeded to remove book ${book.id} from shelves!`);
+          this.setState((currState) => ({
+            books: [...currState.books.filter(b => b.id !== changedBook.id)],
+          }));
+        } else if (resp[shelf].includes(book.id)) {
           console.log(`Succeeded to move book ${book.id} to ${shelf} shelf!`);
           this.setState((currState) => ({
             books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],

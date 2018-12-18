@@ -4,6 +4,7 @@ import Book from './Book';
 import { Link } from 'react-router-dom';
 import { DebounceInput } from 'react-debounce-input';
 import PropTypes from 'prop-types';
+import ReactLoading from 'react-loading';
 
 class BookSearch extends Component {
   static propTypes = {
@@ -22,7 +23,8 @@ class BookSearch extends Component {
     super(props);
     this.state = {
       query: "",
-      searchResult: []
+      searchResult: [],
+      loading: false,
     };
     this.handleQuery = this.handleQuery.bind(this);
   }
@@ -30,21 +32,28 @@ class BookSearch extends Component {
   handleQuery(event) {
     const query = event.target.value;
     const { onSearch } = this.props;
-    this.setState({ query });
+    this.setState({
+      query,
+      loading: true,
+      searchResult: [], });
     console.debug("handleQuery called:", query);
     if (query !== '') {
       onSearch(query)
         .then(searchResult => {
           console.debug('onSearch() promise returned:', searchResult)
           if (searchResult instanceof Array) {
-            this.setState(() => ({ searchResult }));
+            this.setState(() => ({
+              searchResult,
+              loading: false,
+            }));
           } else {
             this.setState(() => ({
               searchResult: [
                 {
                   title: "Invalid search",
                 }
-              ]
+              ],
+              loading: false,
             }))
           }
         })
@@ -54,6 +63,7 @@ class BookSearch extends Component {
         console.log("empty query!");
         return {
           searchResult: [],
+          loading: false,
         };
       });
     }
@@ -87,7 +97,13 @@ class BookSearch extends Component {
           </div>
         </div>
         <div className="search-books-results">
+          {this.state.loading && (
+            <div className="books-grid">
+              <ReactLoading type="spinningBubbles" color="green" height={'20%'} width={'20%'} />
+            </div>
+          )}
           <ol className="books-grid">
+            {/* {this.state.loading && (<li><ReactLoading type="spinningBubbles" color="green" height={100} width={100} /></li>)} */}
             {
               searchResult.map((book, index) => {
                 return (

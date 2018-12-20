@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Book = props => {
   const { book, onBookShelfChange } = props;
   return (
     <div className="book">
       <div className="book-top">
+        {/* TODO: Refactor book cover style behavour */}
         <div
           className="book-cover"
           style={book.style || {
@@ -30,6 +32,13 @@ const Book = props => {
       <div className="book-authors">{(book.authors || []).join("; ") }</div>
     </div>
   );
+}
+
+Book.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    authors: PropTypes.arrayOf(PropTypes.string),
+  }),
 }
 
 export default Book;

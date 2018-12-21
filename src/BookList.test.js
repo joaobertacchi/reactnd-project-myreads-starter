@@ -4,6 +4,11 @@ import { MemoryRouter } from 'react-router-dom';
 import BookList from './BookList';
 
 describe('[Component] BookList', () => {
+  // Force PropTypes to throw errors instead of logging warnings
+  console.error = message => {
+    throw new Error(message);
+  }
+
   const setup = {
     onBookShelfChange: jest.fn(),
   };

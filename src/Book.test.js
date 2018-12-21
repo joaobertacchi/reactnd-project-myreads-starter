@@ -11,11 +11,15 @@ describe('[Component] Book', () => {
   const defaultBook = {
     title: "My book",
     authors: ["John"],
-    shelf: "Read",
+    shelf: "read",
     imageLinks: {
       smallThumbnail: ""
     },
   };
+
+  const setup = {
+    onBookShelfChange: jest.fn(),
+  }
 
   it('MUST have at least a title', () => {
     const { title, ...bookWithoutTitle } = defaultBook;
@@ -46,5 +50,12 @@ describe('[Component] Book', () => {
     const wrapper = shallow(<Book book={bookWithoutShelf} />);
 
     expect(wrapper.find("select").props().value).toEqual("none");
+  });
+
+  it('call onBookShelfChange when a change in select happens', () => {
+    const wrapper = shallow(<Book book={defaultBook} {...setup} />);
+    wrapper.find('select').simulate('change', { target: { value: 'wantToRead' } });
+
+    expect(setup.onBookShelfChange).toHaveBeenCalled();
   });
 });

@@ -25,7 +25,7 @@ describe('[Component] Book', () => {
     const { title, ...bookWithoutTitle } = defaultBook;
 
     expect(() => {
-      shallow(<Book book={bookWithoutTitle} />);
+      shallow(<Book book={bookWithoutTitle} {...setup} />);
     }).toThrow();
   });
 
@@ -33,7 +33,7 @@ describe('[Component] Book', () => {
     const { authors, ...bookWithoutAuthors } = defaultBook;
 
     expect(() => {
-      shallow(<Book book={bookWithoutAuthors} />);
+      shallow(<Book book={bookWithoutAuthors} {...setup} />);
     }).not.toThrow();
   });
 
@@ -41,13 +41,13 @@ describe('[Component] Book', () => {
     const { imageLinks, ...bookWithoutThumbnail } = defaultBook;
 
     expect(() => {
-      shallow(<Book book={bookWithoutThumbnail} />);
+      shallow(<Book book={bookWithoutThumbnail} {...setup} />);
     }).not.toThrow();
   });
 
   it('is classified as "none" when no shelf is provided', () => {
     const { shelf, ...bookWithoutShelf } = defaultBook;
-    const wrapper = shallow(<Book book={bookWithoutShelf} />);
+    const wrapper = shallow(<Book book={bookWithoutShelf} {...setup} />);
 
     expect(wrapper.find("select").props().value).toEqual("none");
   });

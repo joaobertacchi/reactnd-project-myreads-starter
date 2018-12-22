@@ -58,4 +58,18 @@ describe('[Component] Book', () => {
 
     expect(setup.onBookShelfChange).toHaveBeenCalled();
   });
+
+  it('has configurable shelf types', () => {
+    const shelfTypes = [
+      { title: "Type1", shelf: "type1", },
+      { title: "Type2", shelf: "type2", },
+    ];
+    const wrapper = shallow(<Book
+      book={defaultBook}
+      {...setup}
+      shelfTypes={shelfTypes}
+    />);
+
+    expect(wrapper.find('option')).toHaveLength(shelfTypes.length + 2);
+  });
 });

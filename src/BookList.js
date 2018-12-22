@@ -7,6 +7,7 @@ class BookList extends Component {
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.object),
     onBookShelfChange: PropTypes.func.isRequired,
+    shelfTypes: PropTypes.arrayOf(PropTypes.object),
   }
 
   static defaultProps = {
@@ -14,21 +15,7 @@ class BookList extends Component {
   }
 
   render() {
-    const { onBookShelfChange, books } = this.props;
-    const bookShelves = [
-      {
-        title: "Currently Reading",
-        shelf: "currentlyReading",
-      },
-      {
-        title: "Want to Read",
-        shelf: "wantToRead",
-      },
-      {
-        title: "Read",
-        shelf: "read",
-      }
-    ];
+    const { onBookShelfChange, books, shelfTypes } = this.props;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -36,12 +23,13 @@ class BookList extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            {bookShelves.map(bookShelf => (
+            {shelfTypes.map(bookShelf => (
               <BookShelf
                 key={bookShelf.shelf}
                 title={bookShelf.title}
                 books={books.filter(book => book.shelf === bookShelf.shelf)}
                 onBookShelfChange={onBookShelfChange}
+                shelfTypes={shelfTypes}
               />
             ))}
           </div>

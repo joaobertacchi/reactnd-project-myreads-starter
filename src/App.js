@@ -50,17 +50,39 @@ class BooksApp extends React.Component {
 
   render() {
     const { books } = this.state;
+    const shelfTypes = [
+      {
+        title: "Currently Reading",
+        shelf: "currentlyReading",
+      },
+      {
+        title: "Want to Read",
+        shelf: "wantToRead",
+      },
+      {
+        title: "Read",
+        shelf: "read",
+      }
+    ];
     return (
       <div className="app">
         <Route
           exact path="/"
           render={() => (
-            <BookList books={books} onBookShelfChange={this.changeBookShelf} />
+            <BookList
+              books={books}
+              onBookShelfChange={this.changeBookShelf}
+              shelfTypes={shelfTypes}
+            />
           )} />
         <Route
           exact path="/search"
           render={() => (
-            <BookSearch onBookShelfChange={this.changeBookShelf} books={books} />
+            <BookSearch
+              onBookShelfChange={this.changeBookShelf}
+              books={books}
+              shelfTypes={shelfTypes}
+            />
           )} />
       </div>
     )

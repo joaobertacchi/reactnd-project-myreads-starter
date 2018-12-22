@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Book = props => {
-  const { book, onBookShelfChange } = props;
+  const { book, onBookShelfChange, shelfTypes } = props;
   return (
     <div className="book">
       <div className="book-top">
@@ -21,9 +21,9 @@ const Book = props => {
             onChange={event => onBookShelfChange(event.target.value, book)}
           >
             <option value="move" disabled>Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
+            {shelfTypes.map(shelfType => (
+              <option key={shelfType.shelf} value={shelfType.shelf}>{shelfType.title}</option>
+            ))}
             <option value="none">None</option>
           </select>
         </div>
@@ -40,6 +40,11 @@ Book.propTypes = {
     authors: PropTypes.arrayOf(PropTypes.string),
   }),
   onBookShelfChange: PropTypes.func.isRequired,
+  shelfTypes: PropTypes.arrayOf(PropTypes.object),
+}
+
+Book.defaultProps = {
+  shelfTypes: [],
 }
 
 export default Book;

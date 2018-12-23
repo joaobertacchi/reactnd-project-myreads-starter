@@ -52,7 +52,7 @@ describe('[Component] Book', () => {
     expect(wrapper.find("select").props().value).toEqual("none");
   });
 
-  it('call onBookShelfChange when a change in select happens', () => {
+  it('calls onBookShelfChange when a change in select happens', () => {
     const wrapper = shallow(<Book book={defaultBook} {...setup} />);
     wrapper.find('select').simulate('change', { target: { value: 'wantToRead' } });
 

@@ -13,26 +13,16 @@ class BooksApp extends React.Component {
       books: [],
     }
 
-    this.changeBookShelf = this.changeBookShelf.bind(this);
+    this.updateBookShelf = this.updateBookShelf.bind(this);
   }
 
-  changeBookShelf(shelf, book) {
-    const changedBook = {
-      ...book,
-      shelf,
-    };
+  updateBookShelf(book, shelf) {
     BooksAPI.update(book, shelf)
-      .then((resp) => {
+      .then((shelves) => {
         if (shelf === 'none') {
-          console.log(`Succeeded to remove book ${book.id} from shelves!`);
-          this.setState((currState) => ({
-            books: [...currState.books.filter(b => b.id !== changedBook.id)],
-          }));
-        } else if (resp[shelf].includes(book.id)) {
-          console.log(`Succeeded to move book ${book.id} to ${shelf} shelf!`);
-          this.setState((currState) => ({
-            books: [...currState.books.filter(b => b.id !== changedBook.id), changedBook],
-          }));
+          this._removeBookFromAllShelves(book);
+        } else if (Object.keys(shelves).includes(shelf) && shelves[shelf].includes(book.id)) {
+          this._moveBookToShelf(book, shelf);
         } else {
           console.log(`Failed to move book ${book.id} to ${shelf} shelf!`);
         }
@@ -40,6 +30,22 @@ class BooksApp extends React.Component {
       .catch((reason) => {
         console.log(reason);
       });
+  }
+
+  _copyBookAndSetShelf = (book, shelf) => ({ ...book, shelf })
+
+  _moveBookToShelf(book, shelf) {
+    this.setState((currState) => ({
+      books: [...currState.books.filter(b => b.id !== book.id), this._copyBookAndSetShelf(book, shelf)],
+    }));
+    console.log(`Succeeded to move book ${book.id} to ${shelf} shelf!`);
+  }
+
+  _removeBookFromAllShelves(book) {
+    this.setState((currState) => ({
+      books: [...currState.books.filter(b => b.id !== book.id)],
+    }));
+    console.log(`Succeeded to remove book ${book.id} from shelves!`);
   }
 
   componentDidMount() {
@@ -71,7 +77,7 @@ class BooksApp extends React.Component {
           render={() => (
             <BookList
               books={books}
-              onBookShelfChange={this.changeBookShelf}
+              onBookShelfChange={this.updateBookShelf}
               shelfTypes={shelfTypes}
             />
           )} />
@@ -79,7 +85,7 @@ class BooksApp extends React.Component {
           exact path="/search"
           render={() => (
             <BookSearch
-              onBookShelfChange={this.changeBookShelf}
+              onBookShelfChange={this.updateBookShelf}
               books={books}
               shelfTypes={shelfTypes}
             />

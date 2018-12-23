@@ -3,8 +3,21 @@ import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import { Link } from 'react-router-dom';
 import { DebounceInput } from 'react-debounce-input';
+import PropTypes from 'prop-types';
 
 class BookSearch extends Component {
+  static propTypes = {
+    books: PropTypes.arrayOf(PropTypes.object),
+    onBookShelfChange: PropTypes.func.isRequired,
+    shelfTypes: PropTypes.arrayOf(PropTypes.object),
+    onSearch: PropTypes.func,
+  }
+
+  static defaultProps = {
+    books: [],
+    onSearch: BooksAPI.search,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,11 +29,13 @@ class BookSearch extends Component {
 
   handleQuery(event) {
     const query = event.target.value;
+    const { onSearch } = this.props;
     this.setState({ query });
-    console.log("Query:", query);
+    console.debug("handleQuery called:", query);
     if (query !== '') {
-      BooksAPI.search(query)
+      onSearch(query)
         .then(searchResult => {
+          console.debug('onSearch() promise returned:', searchResult)
           if (searchResult instanceof Array) {
             this.setState(() => ({ searchResult }));
           } else {

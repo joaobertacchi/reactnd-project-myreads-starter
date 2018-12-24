@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { DebounceInput } from 'react-debounce-input';
 import PropTypes from 'prop-types';
 import ReactLoading from 'react-loading';
+import If from './If';
 
 class BookSearch extends Component {
   static propTypes = {
@@ -97,11 +98,11 @@ class BookSearch extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {this.state.loading && (
+          <If test={this.state.loading} >
             <div className="books-grid">
               <ReactLoading type="spinningBubbles" color="green" height={'20%'} width={'20%'} />
             </div>
-          )}
+          </If>
           <ol className="books-grid">
             {/* {this.state.loading && (<li><ReactLoading type="spinningBubbles" color="green" height={100} width={100} /></li>)} */}
             {

@@ -108,11 +108,9 @@ describe('[Component] App', () => {
       </MemoryRouter>
     );
 
-    console.log(wrapper.debug());
     wrapper.find('select').simulate('change', { target: { value: 'wantToRead' } });
     process.nextTick(() => {
       wrapper.update();
-      console.log(wrapper.debug());
       expect(wrapper.find('select').props().value).toEqual('wantToRead');
       done();
     });
@@ -133,11 +131,9 @@ describe('[Component] App', () => {
       </MemoryRouter>
     );
 
-    console.log(wrapper.debug());
     wrapper.find('select').simulate('change', { target: { value: 'none' } });
     process.nextTick(() => {
       wrapper.update();
-      console.log(wrapper.debug());
       expect(wrapper.find('Book')).toHaveLength(0);
       done();
     });

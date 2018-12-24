@@ -8,11 +8,6 @@ describe('[Component] BookSearch', () => {
     throw new Error(message);
   }
 
-  // function sleep(ms) {
-  //   var now = new Date().getTime();
-  //   while (new Date().getTime() < now + ms) { /* do nothing */ }
-  // }
-
   let setup;
 
   beforeEach(() => {
@@ -56,6 +51,23 @@ describe('[Component] BookSearch', () => {
 
     wrapper.find('DebounceInput').simulate('change', { target: { value: 'art' } });
     expect(setup.onSearch).toHaveBeenCalled();
+  });
+
+  it('catch error upon API failure', () => {
+    const bogusSetup = {
+      ...setup,
+      onSearch: jest.fn(() => {
+        return new Promise((resolve, reject) => {
+          reject("Bogus input");
+        });
+      }),
+    };
+
+    const wrapper = shallow(<BookSearch {...bogusSetup} />);
+
+    expect(() => {
+      wrapper.find('DebounceInput').simulate('change', { target: { value: 'art' } });
+    }).not.toThrow();
   });
 
   it('return empty list for empty string input', done => {

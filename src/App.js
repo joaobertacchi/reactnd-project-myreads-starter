@@ -1,15 +1,26 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookList from './BookList'
 import BookSearch from './BookSearch';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
+import PropTypes from 'prop-types';
 
 class BooksApp extends React.Component {
+  static propTypes = {
+    update: PropTypes.func,
+    getAll: PropTypes.func,
+  }
+
+  static defaultProps = {
+    update: BooksAPI.update,
+    getAll: BooksAPI.getAll,
+  }
+
   constructor(props) {
     super(props);
-    this.state = {
+    const { state } = this.props;
+    this.state = state || {
       books: [],
     }
 
@@ -17,7 +28,8 @@ class BooksApp extends React.Component {
   }
 
   updateBookShelf(book, shelf) {
-    BooksAPI.update(book, shelf)
+    const { update } = this.props;
+    update(book, shelf)
       .then((shelves) => {
         if (shelf === 'none') {
           this._removeBookFromAllShelves(book);
@@ -49,7 +61,8 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(books => {
+    const { getAll } = this.props;
+    getAll().then(books => {
       this.setState({ books });
     });
   }

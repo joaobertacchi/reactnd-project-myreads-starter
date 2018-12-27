@@ -28,6 +28,7 @@
     "semi": 2
   },
   "env": {
+    "node": true,
     "jest": true
   }
 }

@@ -33,5 +33,16 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: yarn test
+      - run:
+        name: Run Tests
+        command: yarn test
+      - run:
+        name: Create coverage report
+        command: yarn test --coverage
+      - run:
+          name: Check coverage generated
+          command: |
+            if ! [[ -s coverage/lcov.info ]]
+            then
+              exit 1
+            fi

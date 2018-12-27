@@ -13,16 +13,16 @@ describe('[Component] BookList', () => {
     onBookShelfChange: jest.fn(),
     shelfTypes: [
       {
-        title: "Currently Reading",
-        shelf: "currentlyReading",
+        title: 'Currently Reading',
+        shelf: 'currentlyReading',
       },
       {
-        title: "Want to Read",
-        shelf: "wantToRead",
+        title: 'Want to Read',
+        shelf: 'wantToRead',
       },
       {
-        title: "Read",
-        shelf: "read",
+        title: 'Read',
+        shelf: 'read',
       }
     ],
   };

@@ -26,10 +26,10 @@ describe('[Component] App', () => {
       return new Promise((resolve) => {
         const books = [
           {
-            id: "book1",
-            title: "Book 1",
+            id: 'book1',
+            title: 'Book 1',
             authors: [],
-            shelf: "read"
+            shelf: 'read'
           },
         ];
         resolve(books);
@@ -38,7 +38,7 @@ describe('[Component] App', () => {
     update: jest.fn((book, shelf) => {
       return new Promise((resolve) => {
         const shelves = {
-          [shelf]: [(shelf !== "none" ? book.id : undefined)],
+          [shelf]: [(shelf !== 'none' ? book.id : undefined)],
         };
         resolve(shelves);
       });
@@ -94,10 +94,10 @@ describe('[Component] App', () => {
   it('move book from "read" to "wantToRead" shelf', done => {
     const books = [
       {
-        id: "book1",
-        title: "Book 1",
+        id: 'book1',
+        title: 'Book 1',
         authors: [],
-        shelf: "read",
+        shelf: 'read',
       }
     ];
     const wrapper = mount(
@@ -117,10 +117,10 @@ describe('[Component] App', () => {
   it('move book from "read" to "none" shelf', done => {
     const books = [
       {
-        id: "book1",
-        title: "Book 1",
+        id: 'book1',
+        title: 'Book 1',
         authors: [],
-        shelf: "read",
+        shelf: 'read',
       }
     ];
     const wrapper = mount(

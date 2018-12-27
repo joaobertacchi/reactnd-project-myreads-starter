@@ -37,6 +37,13 @@
         "args": "after-used",
         "ignoreRestSiblings": true
       }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
     ]
   },
   "env": {

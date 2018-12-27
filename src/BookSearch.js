@@ -23,7 +23,7 @@ class BookSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: "",
+      query: '',
       searchResult: [],
       loading: false,
     };
@@ -37,7 +37,7 @@ class BookSearch extends Component {
       query,
       loading: true,
       searchResult: [], });
-    console.debug("handleQuery called:", query);
+    console.debug('handleQuery called:', query);
     if (query !== '') {
       onSearch(query)
         .then(searchResult => {
@@ -51,7 +51,7 @@ class BookSearch extends Component {
             this.setState(() => ({
               searchResult: [
                 {
-                  title: "Invalid search",
+                  title: 'Invalid search',
                 }
               ],
               loading: false,
@@ -61,7 +61,7 @@ class BookSearch extends Component {
         .catch(error => console.log(error));
     } else {
       this.setState(() => {
-        console.log("empty query!");
+        console.log('empty query!');
         return {
           searchResult: [],
           loading: false,

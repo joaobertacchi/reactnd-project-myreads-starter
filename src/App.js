@@ -72,16 +72,16 @@ class BooksApp extends React.Component {
     const { books } = this.state;
     const shelfTypes = [
       {
-        title: "Currently Reading",
-        shelf: "currentlyReading",
+        title: 'Currently Reading',
+        shelf: 'currentlyReading',
       },
       {
-        title: "Want to Read",
-        shelf: "wantToRead",
+        title: 'Want to Read',
+        shelf: 'wantToRead',
       },
       {
-        title: "Read",
-        shelf: "read",
+        title: 'Read',
+        shelf: 'read',
       }
     ];
     return (

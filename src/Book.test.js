@@ -9,11 +9,11 @@ describe('[Component] Book', () => {
   };
 
   const defaultBook = {
-    title: "My book",
-    authors: ["John"],
-    shelf: "read",
+    title: 'My book',
+    authors: ['John'],
+    shelf: 'read',
     imageLinks: {
-      smallThumbnail: ""
+      smallThumbnail: ''
     },
   };
 
@@ -49,7 +49,7 @@ describe('[Component] Book', () => {
     const { shelf, ...bookWithoutShelf } = defaultBook;
     const wrapper = shallow(<Book book={bookWithoutShelf} {...setup} />);
 
-    expect(wrapper.find("select").props().value).toEqual("none");
+    expect(wrapper.find('select').props().value).toEqual('none');
   });
 
   it('calls onBookShelfChange when a change in select happens', () => {
@@ -61,8 +61,8 @@ describe('[Component] Book', () => {
 
   it('has configurable shelf types', () => {
     const shelfTypes = [
-      { title: "Type1", shelf: "type1", },
-      { title: "Type2", shelf: "type2", },
+      { title: 'Type1', shelf: 'type1', },
+      { title: 'Type2', shelf: 'type2', },
     ];
     const wrapper = shallow(<Book
       book={defaultBook}

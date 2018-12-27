@@ -17,7 +17,7 @@ const Book = props => {
         ></div>
         <div className="book-shelf-changer">
           <select
-            value={book.shelf || "none"}
+            value={book.shelf || 'none'}
             onChange={event => onBookShelfChange(book, event.target.value)}
           >
             <option value="move" disabled>Move to...</option>
@@ -29,7 +29,7 @@ const Book = props => {
         </div>
       </div>
       <div className="book-title">{book.title}</div>
-      <div className="book-authors">{(book.authors || []).join("; ") }</div>
+      <div className="book-authors">{(book.authors || []).join('; ') }</div>
     </div>
   );
 };

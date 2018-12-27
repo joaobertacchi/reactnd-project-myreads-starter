@@ -17,10 +17,10 @@ describe('[Component] BookSearch', () => {
         return new Promise((resolve) => {
           const books = [
             {
-              title: "Book 1",
+              title: 'Book 1',
             },
             {
-              title: "Book 2",
+              title: 'Book 2',
             },
           ];
           resolve(books);
@@ -58,7 +58,7 @@ describe('[Component] BookSearch', () => {
       ...setup,
       onSearch: jest.fn(() => {
         return new Promise((resolve, reject) => {
-          reject("Bogus input");
+          reject('Bogus input');
         });
       }),
     };
@@ -74,12 +74,12 @@ describe('[Component] BookSearch', () => {
     const wrapper = shallow(<BookSearch {...setup} />);
     const searchResult = [
       {
-        id: "book1",
-        title: "Book 1",
+        id: 'book1',
+        title: 'Book 1',
       },
       {
-        id: "book2",
-        title: "Book 2",
+        id: 'book2',
+        title: 'Book 2',
       },
     ];
     wrapper.instance().setState({ searchResult });

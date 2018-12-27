@@ -26,5 +26,8 @@
   },
   "rules": {
     "semi": 2
+  },
+  "env": {
+    "jest": true
   }
 }

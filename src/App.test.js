@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
-import * as BooksAPI from './BooksAPI';
-import { wrap } from 'module';
 
 /**
  This course is not designed to teach Test Driven Development.

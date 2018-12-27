@@ -104,7 +104,6 @@ class BookSearch extends Component {
             </div>
           </If>
           <ol className="books-grid">
-            {/* {this.state.loading && (<li><ReactLoading type="spinningBubbles" color="green" height={100} width={100} /></li>)} */}
             {
               searchResult.map((book, index) => {
                 return (

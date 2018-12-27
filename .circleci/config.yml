@@ -46,3 +46,6 @@ jobs:
             then
               exit 1
             fi
+      - run:
+          name: Coverage
+          command: bash <(curl -s https://codecov.io/bash) -Z -C $CIRCLE_SHA1

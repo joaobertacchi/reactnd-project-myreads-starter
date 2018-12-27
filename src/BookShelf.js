@@ -22,18 +22,18 @@ const BookShelf = props => {
       </div>
     </div>
   );
-}
+};
 
 BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.arrayOf(PropTypes.object),
   onBookShelfChange: PropTypes.func.isRequired,
   shelfTypes: PropTypes.arrayOf(PropTypes.object),
-}
+};
 
 BookShelf.defaultProps = {
   books: [],
   shelfTypes: [],
-}
+};
 
 export default BookShelf;

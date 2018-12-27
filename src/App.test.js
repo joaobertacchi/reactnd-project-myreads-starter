@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 
@@ -43,7 +43,7 @@ describe('[Component] App', () => {
         resolve(shelves);
       });
     }),
-  }
+  };
 
   it('renders BookList in / path', () => {
     const wrapper = mount(

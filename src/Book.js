@@ -32,7 +32,7 @@ const Book = props => {
       <div className="book-authors">{(book.authors || []).join("; ") }</div>
     </div>
   );
-}
+};
 
 Book.propTypes = {
   book: PropTypes.shape({
@@ -41,10 +41,10 @@ Book.propTypes = {
   }),
   onBookShelfChange: PropTypes.func.isRequired,
   shelfTypes: PropTypes.arrayOf(PropTypes.object),
-}
+};
 
 Book.defaultProps = {
   shelfTypes: [],
-}
+};
 
 export default Book;

@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "udacity",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "16.0"
+    },
+    "propWrapperFunctions": [
+      "forbidExtraProps"
+    ]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": 2
+  }
+}

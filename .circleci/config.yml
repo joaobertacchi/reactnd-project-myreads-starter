@@ -34,11 +34,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-        name: Run Tests
-        command: yarn test
+          name: Run Tests
+          command: yarn test
       - run:
-        name: Create coverage report
-        command: yarn test --coverage
+          name: Create coverage report
+          command: yarn test --coverage
       - run:
           name: Check coverage generated
           command: |

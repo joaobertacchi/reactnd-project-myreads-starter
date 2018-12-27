@@ -1,6 +1,6 @@
-import React from 'react'
-import './App.css'
-import BookList from './BookList'
+import React from 'react';
+import './App.css';
+import BookList from './BookList';
 import BookSearch from './BookSearch';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
@@ -10,6 +10,7 @@ class BooksApp extends React.Component {
   static propTypes = {
     update: PropTypes.func,
     getAll: PropTypes.func,
+    state: PropTypes.object,
   }
 
   static defaultProps = {
@@ -22,7 +23,7 @@ class BooksApp extends React.Component {
     const { state } = this.props;
     this.state = state || {
       books: [],
-    }
+    };
 
     this.updateBookShelf = this.updateBookShelf.bind(this);
   }
@@ -104,8 +105,8 @@ class BooksApp extends React.Component {
             />
           )} />
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;

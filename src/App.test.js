@@ -23,7 +23,7 @@ it('renders without crashing', () => {
 describe('[Component] App', () => {
   const setup = {
     getAll: jest.fn(() => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const books = [
           {
             id: "book1",
@@ -36,7 +36,7 @@ describe('[Component] App', () => {
       });
     }),
     update: jest.fn((book, shelf) => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const shelves = {
           [shelf]: [(shelf !== "none" ? book.id : undefined)],
         };
@@ -68,7 +68,7 @@ describe('[Component] App', () => {
   });
 
   it('fetches all books when App is rendered with / path', () => {
-    const wrapper = mount(
+    mount(
       <MemoryRouter initialEntries={['/']} >
         <App {...setup} />
       </MemoryRouter>

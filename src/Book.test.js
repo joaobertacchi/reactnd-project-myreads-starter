@@ -6,7 +6,7 @@ describe('[Component] Book', () => {
   // Force PropTypes to throw errors instead of logging warnings
   console.error = message => {
     throw new Error(message);
-  }
+  };
 
   const defaultBook = {
     title: "My book",
@@ -19,7 +19,7 @@ describe('[Component] Book', () => {
 
   const setup = {
     onBookShelfChange: jest.fn(),
-  }
+  };
 
   it('MUST have at least a title', () => {
     const { title, ...bookWithoutTitle } = defaultBook;

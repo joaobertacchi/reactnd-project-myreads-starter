@@ -41,7 +41,7 @@ class BookSearch extends Component {
     if (query !== '') {
       onSearch(query)
         .then(searchResult => {
-          console.debug('onSearch() promise returned:', searchResult)
+          console.debug('onSearch() promise returned:', searchResult);
           if (searchResult instanceof Array) {
             this.setState(() => ({
               searchResult,
@@ -55,7 +55,7 @@ class BookSearch extends Component {
                 }
               ],
               loading: false,
-            }))
+            }));
           }
         })
         .catch(error => console.log(error));

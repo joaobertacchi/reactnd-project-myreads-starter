@@ -6,7 +6,7 @@ describe('[Component] BookSearch', () => {
   // Force PropTypes to throw errors instead of logging warnings
   console.error = message => {
     throw new Error(message);
-  }
+  };
 
   let setup;
 
@@ -14,7 +14,7 @@ describe('[Component] BookSearch', () => {
     setup = {
       onBookShelfChange: jest.fn(),
       onSearch: jest.fn(() => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const books = [
             {
               title: "Book 1",
@@ -98,7 +98,7 @@ describe('[Component] BookSearch', () => {
     const setupInvalidQuery = {
       onBookShelfChange: jest.fn(),
       onSearch: jest.fn(() => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const books = undefined;
           resolve(books);
         });

@@ -6,12 +6,12 @@ describe('[Component] BookShelf', () => {
   // Force PropTypes to throw errors instead of logging warnings
   console.error = message => {
     throw new Error(message);
-  }
+  };
 
   const setup = {
     title: 'My shelf',
     onBookShelfChange: jest.fn(),
-  }
+  };
 
   it('renders correctly', () => {
     expect(() => {
@@ -32,7 +32,7 @@ describe('[Component] BookShelf', () => {
     const books = [
       { title: 'Book1', authors: [] },
       { title: 'Book2', authors: [] },
-    ]
+    ];
     const wrapper = shallow(
       <BookShelf {...setup} books={books} />
     );

@@ -49,3 +49,6 @@ jobs:
       - run:
           name: Coverage
           command: bash <(curl -s https://codecov.io/bash) -Z -C $CIRCLE_SHA1
+      - run:
+          name: Build
+          command: yarn build

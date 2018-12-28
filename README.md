@@ -7,9 +7,11 @@
 
 </div>
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
+MyReads is a React SPA for tracking book reading interest, books currently being read, and books that have already been read. It has the following 2 routes:
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+* / : Show 3 book lists: "Currently Reading", "Want to Read", and "Read". For each listed book, it's possible to move it from its currently list to another list or remove it from all the lists (move to None).
+
+* /search : Search for books using a backend service. Found books can be added to one of the 3 book lists: "Currently Reading", "Want to Read", and "Read". If a found book is already in one of the 3 lists, the current book list must be selected.
 
 ## TL;DR
 
@@ -17,6 +19,9 @@ To get started developing right away:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
+* run tests with `npm test`
+* create coverage report with `npm test -- --coverage`
+* build project for production with `npm build`
 
 ## What You're Getting
 ```bash
@@ -40,7 +45,17 @@ To get started developing right away:
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
 
-Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
+## Project additions
+
+The following additional features were added to the project:
+
+* **DebounceInput**: used *react-debounce-input* package in BookSearch component to solve a bug in the change input handler. Queries for empty string '' don't need to be forwarded to the search backend service and, therefore, return earlier than non-empty requests. In special situations, late responses from the backend service inadvertently changed the component state. Its usage also reduce network traffic.
+* **If component**: idea presented in an online session. If component that is responsible for rendering/not rendering its child based on a test props.
+* **Loading**: used *react-loading* package to show user feedback when searching for a book at /search page and no response is still available. It is used with the If component described above.
+* **Tests**: used jest and enzyme as explained in an online session. All developed components have more than 90% of code coverage.
+* **ESLint**: it was configured to enforce Udacity's JavaScript code style.
+* **Continuous Integration**: *CircleCI* was configured to run the tests, create coverage report, and upload it to *Codecov.io*. It was also configured to build the project.
+* **Badges**: build status and code coverage badges were configured to show in README.md.
 
 ## Backend Server
 
@@ -70,7 +85,7 @@ update(book, shelf)
 ```
 
 * book: `<Object>` containing at minimum an `id` attribute
-* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
+* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
 * Returns a Promise which resolves to a JSON object containing the response data of the POST request
 
 ### `search`

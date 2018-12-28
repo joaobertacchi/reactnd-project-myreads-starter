@@ -26,6 +26,7 @@ class BookSearch extends Component {
       query: '',
       searchResult: [],
       loading: false,
+      invalidSearch: false,
     };
     this.handleQuery = this.handleQuery.bind(this);
   }
@@ -36,7 +37,8 @@ class BookSearch extends Component {
     this.setState({
       query,
       loading: true,
-      searchResult: [], });
+      searchResult: [],
+      invalidSearch: false, });
     console.debug('handleQuery called:', query);
     if (query !== '') {
       onSearch(query)
@@ -46,15 +48,13 @@ class BookSearch extends Component {
             this.setState(() => ({
               searchResult,
               loading: false,
+              invalidSearch: false,
             }));
           } else {
             this.setState(() => ({
-              searchResult: [
-                {
-                  title: 'Invalid search',
-                }
-              ],
+              searchResult: [],
               loading: false,
+              invalidSearch: true,
             }));
           }
         })
@@ -65,6 +65,7 @@ class BookSearch extends Component {
         return {
           searchResult: [],
           loading: false,
+          invalidSearch: false,
         };
       });
     }
@@ -72,7 +73,7 @@ class BookSearch extends Component {
 
   render() {
     const { onBookShelfChange, books, shelfTypes } = this.props;
-    const { searchResult, query } = this.state;
+    const { searchResult, query, loading, invalidSearch } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -98,9 +99,14 @@ class BookSearch extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <If test={this.state.loading} >
+          <If test={loading} >
             <div className="books-grid">
               <ReactLoading type="spinningBubbles" color="green" height={'20%'} width={'20%'} />
+            </div>
+          </If>
+          <If test={invalidSearch}>
+            <div className="books-grid">
+              <p><b>Invalid search</b>: term <em>{query}</em> is not an allowed search term. See SEARCH_TERMS.md for further info.</p>
             </div>
           </If>
           <ol className="books-grid">

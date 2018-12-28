@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Book = props => {
   const { book, onBookShelfChange, shelfTypes } = props;
@@ -7,14 +8,16 @@ const Book = props => {
     <div className="book">
       <div className="book-top">
         {/* TODO: Refactor book cover style behavour */}
-        <div
-          className="book-cover"
-          style={book.style || {
-            width: 128,
-            height: 190,
-            backgroundImage: `url(${(book.imageLinks && book.imageLinks.smallThumbnail) || ''})`,
-          }}
-        ></div>
+        <Link to={`/books/${book.id}`}>
+          <div
+            className="book-cover"
+            style={book.style || {
+              width: 128,
+              height: 190,
+              backgroundImage: `url(${(book.imageLinks && book.imageLinks.smallThumbnail) || ''})`,
+            }}
+            ></div>
+        </Link>
         <div className="book-shelf-changer">
           <select
             value={book.shelf || 'none'}

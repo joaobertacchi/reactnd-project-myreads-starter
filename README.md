@@ -13,6 +13,8 @@ MyReads is a React SPA for tracking book reading interest, books currently being
 
 * /search : Search for books using a backend service. Found books can be added to one of the 3 book lists: "Currently Reading", "Want to Read", and "Read". If a found book is already in one of the 3 lists, the current book list must be selected.
 
+* /books/:id : Show detailed information for book with id :id.
+
 ## TL;DR
 
 To get started developing right away:
@@ -51,6 +53,7 @@ The following additional features were added to the project:
 
 * **DebounceInput**: used *react-debounce-input* package in BookSearch component to solve a bug in the change input handler. Queries for empty string '' don't need to be forwarded to the search backend service and, therefore, return earlier than non-empty requests. In special situations, late responses from the backend service inadvertently changed the component state. Its usage also reduce network traffic.
 * **If component**: idea presented in an online session. If component that is responsible for rendering/not rendering its child based on a test props.
+* **BookDetails component**: show additional book information in /books/:id route.
 * **Loading**: used *react-loading* package to show user feedback when searching for a book at /search page and no response is still available. It is used with the If component described above.
 * **Tests**: used jest and enzyme as explained in an online session. All developed components have more than 90% of code coverage.
 * **ESLint**: it was configured to enforce Udacity's JavaScript code style.

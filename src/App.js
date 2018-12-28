@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import BookList from './BookList';
 import BookSearch from './BookSearch';
+import BookDetails from './BookDetails';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import PropTypes from 'prop-types';
@@ -104,6 +105,12 @@ class BooksApp extends React.Component {
               shelfTypes={shelfTypes}
             />
           )} />
+        <Route
+          exact path="/books/:id"
+          render={props => (
+            <BookDetails {...props} />
+          )}
+        />
       </div>
     );
   }

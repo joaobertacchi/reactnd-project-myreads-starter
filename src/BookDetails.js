@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import If from './If';
 import ReactLoading from 'react-loading';
@@ -42,25 +43,44 @@ class BookDetails extends Component {
   render() {
     const { book, loading } = this.state;
     return (
-      <div className="list-books">
-        <div className="list-books-title">
+      <div className="book-details">
+        <div className="book-details-title">
+          <Link to="/">
+            <button className="book-details-back">Close</button>
+          </Link>
           <h1>Book Details</h1>
         </div>
-        <div className="list-books-content">
-          <div
-            className="book-cover"
-            style={book.style || {
-              width: 128,
-              height: 190,
-              backgroundImage: `url(${(book.imageLinks && book.imageLinks.smallThumbnail) || ''})`,
-            }}
-          ></div>
-          <p><b>Title:</b> {book.title}</p>
-          <p><b>Description:</b> {book.description}</p>
-          <p><b>Authors:</b> {(book.authors || []).join('; ')}</p>
-          <If test={loading}>
-            <ReactLoading type="spinningBubbles" color="green" height={'20%'} width={'20%'} />
-          </If>
+        <div className="book-details-content">
+          <div className="book-details-left">
+            <div
+              className="book-details-cover"
+              style={book.style || {
+                width: 300,
+                height: 435,
+                backgroundImage: `url(${(book.imageLinks && book.imageLinks.thumbnail.replace('zoom=1', 'zoom=2')) || ''})`,
+              }}
+            ></div>
+          </div>
+          <div className="book-details-right">
+            <div className="book-details-content-text">
+              <If test={loading}>
+                <ReactLoading type="spinningBubbles" color="green" height={'40%'} width={'40%'} />
+              </If>
+              <If test={!loading}>
+                <h1>
+                  {book.title}
+                  <If test={book.subtitle}>
+                    <small>: {book.subtitle}</small>
+                  </If>
+                </h1>
+                <p><b>Authors:</b> {(book.authors || []).join('; ')} | <b>Pages:</b> {book.pageCount} | <b>ISBN:</b> {(book.industryIdentifiers ? book.industryIdentifiers[1].identifier : '')}</p>
+                <p>{book.description}</p>
+                <p>Published by <b>{book.publisher}</b> in {(new Date(book.publishedDate)).toDateString()}</p>
+              </If>
+            </div>
+          </div>
+        </div>
+        <div className="book-details-footer">
         </div>
       </div>
     );

@@ -54,7 +54,7 @@ The following additional features were added to the project:
 * **DebounceInput**: used *react-debounce-input* package in BookSearch component to solve a bug in the change input handler. Queries for empty string '' don't need to be forwarded to the search backend service and, therefore, return earlier than non-empty requests. In special situations, late responses from the backend service inadvertently changed the component state. Its usage also reduce network traffic.
 * **If component**: idea presented in an online session. If component that is responsible for rendering/not rendering its child based on a test props.
 * **BookDetails component**: show additional book information in /books/:id route.
-* **Loading**: used *react-loading* package to show user feedback when searching for a book at /search page and no response is still available. It is used with the If component described above.
+* **Loading**: used *react-loading* package to show visual feedback to user when calling BooksAPI at /search and /books/:id pages. It is used with the If component described above.
 * **Tests**: used jest and enzyme as explained in an online session. All developed components have more than 90% of code coverage.
 * **ESLint**: it was configured to enforce Udacity's JavaScript code style.
 * **Continuous Integration**: *CircleCI* was configured to run the tests, create coverage report, and upload it to *Codecov.io*. It was also configured to build the project.

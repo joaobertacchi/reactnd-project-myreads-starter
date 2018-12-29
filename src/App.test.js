@@ -54,6 +54,7 @@ describe('[Component] App', () => {
 
     expect(wrapper.find('BookList')).toHaveLength(1);
     expect(wrapper.find('BookSearch')).toHaveLength(0);
+    expect(wrapper.find('BookDetails')).toHaveLength(0);
   });
 
   it('renders BookSearch in /search path', () => {
@@ -65,6 +66,19 @@ describe('[Component] App', () => {
 
     expect(wrapper.find('BookList')).toHaveLength(0);
     expect(wrapper.find('BookSearch')).toHaveLength(1);
+    expect(wrapper.find('BookDetails')).toHaveLength(0);
+  });
+
+  it('renders BookDetails in /books/:id path', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/books/123']} >
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(wrapper.find('BookList')).toHaveLength(0);
+    expect(wrapper.find('BookSearch')).toHaveLength(0);
+    expect(wrapper.find('BookDetails')).toHaveLength(1);
   });
 
   it('fetches all books when App is rendered with / path', () => {
@@ -117,6 +131,29 @@ describe('[Component] App', () => {
     process.nextTick(() => {
       wrapper.update();
       expect(wrapper.find('Book')).toHaveLength(0);
+      done();
+    });
+  });
+
+  it('API call fails', done => {
+    const bogusSetup = {
+      ...setup,
+      update: jest.fn((book, shelf) => {
+        return new Promise((resolve, reject) => {
+          reject(shelf);
+        });
+      }),
+    };
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/']} >
+        <App state={{ books }} {...bogusSetup} />
+      </MemoryRouter>
+    );
+
+    wrapper.find('select').simulate('change', { target: { value: 'none' } });
+    process.nextTick(() => {
+      wrapper.update();
+      expect(wrapper.find('Book')).toHaveLength(1);
       done();
     });
   });

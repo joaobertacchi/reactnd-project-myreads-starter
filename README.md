@@ -7,13 +7,13 @@
 
 </div>
 
-MyReads is a React SPA for tracking book reading interest, books currently being read, and books that have already been read. It has the following 2 routes:
+MyReads is a React SPA for tracking book reading interest, books currently being read, and books that have already been read. It has the following 3 routes:
 
-* / : Show 3 book lists: "Currently Reading", "Want to Read", and "Read". For each listed book, it's possible to move it from its currently list to another list or remove it from all the lists (move to None).
+* **/** : Show 3 book lists: "Currently Reading", "Want to Read", and "Read". For each listed book, it's possible to move it from its currently list to another list or remove it from all the lists (move to None).
 
-* /search : Search for books using a backend service. Found books can be added to one of the 3 book lists: "Currently Reading", "Want to Read", and "Read". If a found book is already in one of the 3 lists, the current book list must be selected.
+* **/search** : Search for books using a backend service. Found books can be added to one of the 3 book lists: "Currently Reading", "Want to Read", and "Read". If a found book is already in one of the 3 lists, the current book list must be selected.
 
-* /books/:id : Show detailed information for book with id :id.
+* **/books/:id** : Show detailed information for book with id :id.
 
 ## TL;DR
 

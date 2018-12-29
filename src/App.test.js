@@ -21,17 +21,17 @@ it('renders without crashing', () => {
 });
 
 describe('[Component] App', () => {
+  const books = [
+    {
+      id: 'book1',
+      title: 'Book 1',
+      authors: [],
+      shelf: 'read'
+    },
+  ];
   const setup = {
     getAll: jest.fn(() => {
       return new Promise((resolve) => {
-        const books = [
-          {
-            id: 'book1',
-            title: 'Book 1',
-            authors: [],
-            shelf: 'read'
-          },
-        ];
         resolve(books);
       });
     }),
@@ -92,14 +92,6 @@ describe('[Component] App', () => {
   });
 
   it('move book from "read" to "wantToRead" shelf', done => {
-    const books = [
-      {
-        id: 'book1',
-        title: 'Book 1',
-        authors: [],
-        shelf: 'read',
-      }
-    ];
     const wrapper = mount(
       <MemoryRouter initialEntries={['/']} >
         <App state={{ books }} {...setup} />
@@ -115,14 +107,6 @@ describe('[Component] App', () => {
   });
 
   it('move book from "read" to "none" shelf', done => {
-    const books = [
-      {
-        id: 'book1',
-        title: 'Book 1',
-        authors: [],
-        shelf: 'read',
-      }
-    ];
     const wrapper = mount(
       <MemoryRouter initialEntries={['/']} >
         <App state={{ books }} {...setup} />

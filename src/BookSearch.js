@@ -16,8 +16,8 @@ class BookSearch extends Component {
      * BookSearch component's dependency of BooksAPI. Useful for unit-testing
      * BookSearch component. **/
     onSearch: PropTypes.func,
-    history: PropTypes.object,
-    location: PropTypes.object,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -36,16 +36,18 @@ class BookSearch extends Component {
     this.handleQuery = this.handleQuery.bind(this);
   }
 
-  componentWillMount() {
-    const params = new URLSearchParams(this.props.location.search);
-    const query = params.get('q');
-    if (query && query !== '') {
-      const event = {
-        target: {
-          value: query,
-        }
-      };
-      this.handleQuery(event);
+  componentDidMount() {
+    if (this.props.location && this.props.location.search) {
+      const params = new URLSearchParams(this.props.location.search);
+      const query = params.get('q');
+      if (query && query !== '') {
+        const event = {
+          target: {
+            value: query,
+          }
+        };
+        this.handleQuery(event);
+      }
     }
   }
 
@@ -83,7 +85,7 @@ class BookSearch extends Component {
   }
 
   _handleEmptyQuery() {
-    console.log('empty query!');
+    console.debug('empty query!');
     this.setState(() => ({
       searchResult: [],
       loading: false,
@@ -144,7 +146,7 @@ class BookSearch extends Component {
                 return (
                   <li key={book.id || index}>
                     <Book
-                      book={books.filter((b) => b.id === book.id)[0] || book}
+                      book={this._getBookFromShelves(books, book)}
                       onBookShelfChange={onBookShelfChange}
                       shelfTypes={shelfTypes}
                     />
@@ -156,6 +158,10 @@ class BookSearch extends Component {
         </div>
       </div>
     );
+  }
+
+  _getBookFromShelves(shelves, searchedBook) {
+    return shelves.filter(book => book.id === searchedBook.id)[0] || searchedBook;
   }
 }
 

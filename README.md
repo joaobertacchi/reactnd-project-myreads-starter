@@ -57,7 +57,7 @@ The following additional features were added to the project:
 * **BookDetails component**: show additional book information in /books/:id route. Back button returns to the previous page.
 * **Loading**: used *react-loading* package to show visual feedback to user when calling BooksAPI at /search and /books/:id pages. It is used in conjunction with the If component described above.
 * **Search query in browser path**: improved BookSearch component to update /search?q=term path to the searched term.
-* **Tests**: used jest and enzyme as explained in an online session. All developed components have more than 90% of code coverage.
+* **Tests**: used jest and enzyme as explained in an online session. All developed components have more than 80% of code coverage.
 * **ESLint**: it was configured to enforce Udacity's JavaScript code style.
 * **Continuous Integration**: *CircleCI* was configured to run the tests, create coverage report, and upload it to *Codecov.io*. It was also configured to build the project.
 * **Badges**: build status and code coverage badges were configured to show in README.md.

@@ -1,6 +1,8 @@
 import React from 'react';
 import BookSearch from './BookSearch';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 describe('[Component] BookSearch', () => {
   // Force PropTypes to throw errors instead of logging warnings
@@ -9,8 +11,12 @@ describe('[Component] BookSearch', () => {
   };
 
   let setup;
+  let pathname;
+  let history;
 
   beforeEach(() => {
+    pathname = '/search';
+    history = createMemoryHistory(pathname);
     setup = {
       onBookShelfChange: jest.fn(),
       onSearch: jest.fn(() => {
@@ -26,8 +32,10 @@ describe('[Component] BookSearch', () => {
           resolve(books);
         });
       }),
-      history: {
-        push: jest.fn(),
+      history,
+      location: {
+        pathname,
+        search: '',
       }
     };
   });
@@ -49,6 +57,28 @@ describe('[Component] BookSearch', () => {
     BookSearch.prototype.handleQuery = oldHandleQuery;
   });
 
+  it('calls handleQuery when url contains a preset query term', done => {
+    const pathname = '/search';
+    const search = '?q=term';
+    history.push(pathname+search);
+    const wrapper = shallow(
+      <BookSearch {...{
+        ...setup,
+        location: {
+          pathname,
+          search,
+        }
+      }} />
+    );
+
+    wrapper.instance().componentDidMount();
+    expect(setup.onSearch).toHaveBeenCalled();
+    process.nextTick(() => {
+      expect(wrapper.find('Book')).toHaveLength(2);
+      done();
+    });
+  });
+
   it('calls onSearch handler when passed via props', () => {
     const wrapper = shallow(<BookSearch {...setup} />);
 
@@ -66,7 +96,11 @@ describe('[Component] BookSearch', () => {
       }),
     };
 
-    const wrapper = shallow(<BookSearch {...bogusSetup} />);
+    const wrapper = mount(
+      <Router history={history}>
+        <BookSearch {...bogusSetup} />
+      </Router>
+    );
 
     expect(() => {
       wrapper.find('DebounceInput').simulate('change', { target: { value: 'art' } });
@@ -109,5 +143,34 @@ describe('[Component] BookSearch', () => {
     };
     const wrapper = shallow(<BookSearch {...setupInvalidQuery} />);
     wrapper.find('DebounceInput').simulate('change', { target: { value: '???' } });
+  });
+
+  it('_getBookFromShelves() returns a book from the shelves when it is available', () => {
+    const searchedBook = {
+      id: 1,
+    };
+    const shelfBook1 = {
+      id: 1,
+    };
+    const shelfBook2 = {
+      id: 2,
+    };
+    const shelves = [shelfBook1, shelfBook2];
+
+    const wrapper = shallow(<BookSearch {...setup} />);
+    expect(wrapper.instance()._getBookFromShelves(shelves, searchedBook)).toBe(shelfBook1);
+  });
+
+  it('_getBookFromShelves() returns the searchedBook when it is not on the shelves', () => {
+    const searchedBook = {
+      id: 1,
+    };
+    const shelfBook2 = {
+      id: 2,
+    };
+    const shelves = [shelfBook2];
+
+    const wrapper = shallow(<BookSearch {...setup} />);
+    expect(wrapper.instance()._getBookFromShelves(shelves, searchedBook)).toBe(searchedBook);
   });
 });

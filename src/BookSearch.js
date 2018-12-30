@@ -47,43 +47,53 @@ class BookSearch extends Component {
 
   handleQuery(event) {
     const query = event.target.value;
-    const { onSearch, history } = this.props;
+    this._setPreSearchState(query);
+    this._updateAddressBar(query, history);
+    console.debug('handleQuery called:', query);
+    (query !== '' ?
+      this._handleNonEmptyQuery(query) :
+      this._handleEmptyQuery());
+  }
+
+  _setPreSearchState(query) {
     this.setState({
       query,
       loading: true,
       searchResult: [],
-      invalidSearch: false, });
-    (query !== '' ? history.push(`/search?q=${query}`) : history.push(`/search`));
-    console.debug('handleQuery called:', query);
-    if (query !== '') {
-      onSearch(query)
-        .then(searchResult => {
-          console.debug('onSearch() promise returned:', searchResult);
-          if (searchResult instanceof Array) {
-            this.setState(() => ({
-              searchResult,
-              loading: false,
-              invalidSearch: false,
-            }));
-          } else {
-            this.setState(() => ({
-              searchResult: [],
-              loading: false,
-              invalidSearch: true,
-            }));
-          }
-        })
-        .catch(error => console.log(error));
-    } else {
-      this.setState(() => {
-        console.log('empty query!');
-        return {
-          searchResult: [],
+      invalidSearch: false,
+    });
+  }
+
+  _handleNonEmptyQuery(query) {
+    const { onSearch } = this.props;
+    onSearch(query)
+      .then(searchResult => {
+        console.debug('onSearch() promise returned:', searchResult);
+        this.setState(() => ({
+          searchResult: (this._isValidResult(searchResult) ? searchResult : []),
           loading: false,
-          invalidSearch: false,
-        };
-      });
-    }
+          invalidSearch: !this._isValidResult(searchResult),
+        }));
+      })
+      .catch(error => console.log(error));
+  }
+
+  _handleEmptyQuery() {
+    console.log('empty query!');
+    this.setState(() => ({
+      searchResult: [],
+      loading: false,
+      invalidSearch: false,
+    }));
+  }
+
+  _isValidResult(searchResult) {
+    return searchResult instanceof Array;
+  }
+
+  _updateAddressBar(query) {
+    const { history } = this.props;
+    (query !== '' ? history.push(`/search?q=${query}`) : history.push(`/search`));
   }
 
   render() {

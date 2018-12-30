@@ -65,6 +65,9 @@ describe('[Component] BookDetails', () => {
         resolve(book);
       });
     }),
+    history: {
+      goBack: jest.fn(),
+    }
   };
 
   it('renders successfully when onGet fails', () => {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import If from './If';
 import ReactLoading from 'react-loading';
@@ -9,6 +8,7 @@ class BookDetails extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     onGet: PropTypes.func,
+    history: PropTypes.object,
   };
 
   static defaultProps = {
@@ -42,12 +42,11 @@ class BookDetails extends Component {
 
   render() {
     const { book, loading } = this.state;
+    const { history } = this.props;
     return (
       <div className="book-details">
         <div className="book-details-title">
-          <Link to="/">
-            <button className="book-details-back">Close</button>
-          </Link>
+          <button className="book-details-back" onClick={history.goBack}>Close</button>
           <h1>Book Details</h1>
         </div>
         <div className="book-details-content">

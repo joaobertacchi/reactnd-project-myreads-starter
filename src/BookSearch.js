@@ -161,6 +161,8 @@ class BookSearch extends Component {
   }
 
   _getBookFromShelves(shelves, searchedBook) {
+    /* TODO: improve search speed by using a Map instead of running over
+    all the books on the shelves */
     return shelves.filter(book => book.id === searchedBook.id)[0] || searchedBook;
   }
 }

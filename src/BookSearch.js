@@ -17,6 +17,7 @@ class BookSearch extends Component {
      * BookSearch component. **/
     onSearch: PropTypes.func,
     history: PropTypes.object,
+    location: PropTypes.object,
   }
 
   static defaultProps = {
@@ -36,7 +37,7 @@ class BookSearch extends Component {
   }
 
   componentWillMount() {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(this.props.location.search);
     const query = params.get('q');
     if (query && query !== '') {
       const event = {

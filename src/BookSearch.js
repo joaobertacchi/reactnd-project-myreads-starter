@@ -12,6 +12,9 @@ class BookSearch extends Component {
     books: PropTypes.arrayOf(PropTypes.object),
     onBookShelfChange: PropTypes.func.isRequired,
     shelfTypes: PropTypes.arrayOf(PropTypes.object),
+    /** Set onSearch to a function that returns a promisse in order to remove
+     * BookSearch component's dependency of BooksAPI. Useful for unit-testing
+     * BookSearch component. **/
     onSearch: PropTypes.func,
     history: PropTypes.object,
   }

@@ -13,6 +13,7 @@ class BookSearch extends Component {
     onBookShelfChange: PropTypes.func.isRequired,
     shelfTypes: PropTypes.arrayOf(PropTypes.object),
     onSearch: PropTypes.func,
+    history: PropTypes.object,
   }
 
   static defaultProps = {
@@ -31,14 +32,28 @@ class BookSearch extends Component {
     this.handleQuery = this.handleQuery.bind(this);
   }
 
+  componentWillMount() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q');
+    if (query && query !== '') {
+      const event = {
+        target: {
+          value: query,
+        }
+      };
+      this.handleQuery(event);
+    }
+  }
+
   handleQuery(event) {
     const query = event.target.value;
-    const { onSearch } = this.props;
+    const { onSearch, history } = this.props;
     this.setState({
       query,
       loading: true,
       searchResult: [],
       invalidSearch: false, });
+    (query !== '' ? history.push(`/search?q=${query}`) : history.push(`/search`));
     console.debug('handleQuery called:', query);
     if (query !== '') {
       onSearch(query)

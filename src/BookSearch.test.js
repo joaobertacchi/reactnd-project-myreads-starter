@@ -26,6 +26,9 @@ describe('[Component] BookSearch', () => {
           resolve(books);
         });
       }),
+      history: {
+        push: jest.fn(),
+      }
     };
   });
 
@@ -96,7 +99,7 @@ describe('[Component] BookSearch', () => {
 
   it('renders successfully invalid query', () => {
     const setupInvalidQuery = {
-      onBookShelfChange: jest.fn(),
+      ...setup,
       onSearch: jest.fn(() => {
         return new Promise((resolve) => {
           const books = undefined;

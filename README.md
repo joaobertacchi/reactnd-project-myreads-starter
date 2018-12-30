@@ -11,7 +11,7 @@ MyReads is a React SPA for tracking book reading interest, books currently being
 
 * **/** : Show 3 book lists: "Currently Reading", "Want to Read", and "Read". For each listed book, it's possible to move it from its currently list to another list or remove it from all the lists (move to None).
 
-* **/search** : Search for books using a backend service. Found books can be added to one of the 3 book lists: "Currently Reading", "Want to Read", and "Read". If a found book is already in one of the 3 lists, the current book list must be selected.
+* **/search?q=** : Search for books using a backend service. Found books can be added to one of the 3 book lists: "Currently Reading", "Want to Read", and "Read". If a found book is already in one of the 3 lists, the current book list must be selected.
 
 * **/books/:id** : Show detailed information for book with id :id.
 
@@ -26,6 +26,7 @@ To get started developing right away:
 * build project for production with `npm build`
 
 ## What You're Getting
+
 ```bash
 ├── CONTRIBUTING.md
 ├── README.md - This file.
@@ -52,9 +53,10 @@ To get started developing right away:
 The following additional features were added to the project:
 
 * **DebounceInput**: used *react-debounce-input* package in BookSearch component to solve a bug in the change input handler. Queries for empty string '' don't need to be forwarded to the search backend service and, therefore, return earlier than non-empty requests. In special situations, late responses from the backend service inadvertently changed the component state. Its usage also reduce network traffic.
-* **If component**: idea presented in an online session. If component that is responsible for rendering/not rendering its child based on a test props.
-* **BookDetails component**: show additional book information in /books/:id route.
-* **Loading**: used *react-loading* package to show visual feedback to user when calling BooksAPI at /search and /books/:id pages. It is used with the If component described above.
+* **If component**: idea presented in an online session. If component that is responsible for rendering/not rendering its child based on test props.
+* **BookDetails component**: show additional book information in /books/:id route. Back button returns to the previous page.
+* **Loading**: used *react-loading* package to show visual feedback to user when calling BooksAPI at /search and /books/:id pages. It is used in conjunction with the If component described above.
+* **Search query in browser path**: improved BookSearch component to update /search?q=term path to the searched term.
 * **Tests**: used jest and enzyme as explained in an online session. All developed components have more than 90% of code coverage.
 * **ESLint**: it was configured to enforce Udacity's JavaScript code style.
 * **Continuous Integration**: *CircleCI* was configured to run the tests, create coverage report, and upload it to *Codecov.io*. It was also configured to build the project.
@@ -104,6 +106,7 @@ search(query)
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
+
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
 
 ## Create React App

@@ -52,7 +52,7 @@ class BookSearch extends Component {
   handleQuery(event) {
     const query = event.target.value;
     this._setPreSearchState(query);
-    this._updateAddressBar(query, history);
+    this._updateAddressBar(query);
     console.debug('handleQuery called:', query);
     (query !== '' ?
       this._handleNonEmptyQuery(query) :

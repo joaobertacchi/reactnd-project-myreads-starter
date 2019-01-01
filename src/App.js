@@ -19,17 +19,8 @@ class BooksApp extends React.Component {
     getAll: BooksAPI.getAll,
   }
 
-  constructor(props) {
-    super(props);
-    const { state } = this.props;
-    this.state = state || {
-      books: [],
-    };
-
-    this.updateBookShelf = this.updateBookShelf.bind(this);
-  }
-
-  updateBookShelf(book, shelf) {
+  state = this.props.state || { books: [] };
+  updateBookShelf = (book, shelf) => {
     const { update } = this.props;
     update(book, shelf)
       .then((shelves) => {
